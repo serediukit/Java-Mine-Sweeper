@@ -10,6 +10,7 @@ public class MineSweeper extends JFrame {
     private final int IMAGE_SIZE = 50;
 
     public static void main(String[] args) {
+        System.out.println();
         new MineSweeper();
     }
 
@@ -40,6 +41,7 @@ public class MineSweeper extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
+        setIconImage(getImage("logo"));
     };
 
     private void setImages() {
@@ -49,8 +51,8 @@ public class MineSweeper extends JFrame {
     }
 
     private Image getImage(String name) {
-        String filename = "res/img/" + name.toLowerCase() + ".png";
-        ImageIcon icon = new ImageIcon(filename);
+        String filename = "/img/" + name.toLowerCase() + ".png";
+        ImageIcon icon = new ImageIcon(getClass().getResource(filename));
         return icon.getImage();
     }
 }
