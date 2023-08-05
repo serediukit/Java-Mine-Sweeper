@@ -8,4 +8,13 @@ public class Coord {
         this.x = x;
         this.y = y;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+         if (obj instanceof Coord) {
+             Coord coord = (Coord) obj;
+             return coord.x == x && coord.y == y;
+         }
+         return super.equals(obj);
+    }
 }

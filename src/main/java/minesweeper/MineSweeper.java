@@ -8,7 +8,7 @@ public class MineSweeper extends JFrame {
     private JPanel gamingPanel;
     private final int COLS = 30;
     private final int ROWS = 15;
-    private final int BOMBS = 20;
+    private final int BOMBS = 100;
     private final int IMAGE_SIZE = 50;
 
     public static void main(String[] args) {
