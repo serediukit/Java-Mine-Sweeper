@@ -4,9 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MineSweeper extends JFrame {
+    private Game game;
     private JPanel gamingPanel;
     private final int COLS = 30;
     private final int ROWS = 15;
+    private final int BOMBS = 20;
     private final int IMAGE_SIZE = 50;
 
     public static void main(String[] args) {
@@ -15,6 +17,8 @@ public class MineSweeper extends JFrame {
     }
 
     private MineSweeper() {
+        game = new Game(COLS, ROWS, BOMBS);
+        game.start();
         setImages();
         initPanel();
         initFrame();
@@ -25,12 +29,12 @@ public class MineSweeper extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                for (Box box : Box.values()) {
-                    g.drawImage((Image) box.image, box.ordinal() * IMAGE_SIZE, 0, this);
+                for (Coord coord : Ranges.getListCoords()) {
+                    g.drawImage((Image) game.getBox(coord).image, coord.x * IMAGE_SIZE, coord.y * IMAGE_SIZE, this);
                 }
             }
         };
-        gamingPanel.setPreferredSize(new Dimension(COLS * IMAGE_SIZE, ROWS * IMAGE_SIZE));
+        gamingPanel.setPreferredSize(new Dimension(Ranges.getSize().x * IMAGE_SIZE, Ranges.getSize().y * IMAGE_SIZE));
         add(gamingPanel);
     }
 
