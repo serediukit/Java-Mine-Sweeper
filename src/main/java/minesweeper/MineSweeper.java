@@ -8,9 +8,10 @@ import java.awt.event.MouseEvent;
 public class MineSweeper extends JFrame {
     private Game game;
     private JPanel gamingPanel;
+    private JLabel label;
     private final int COLS = 30;
-    private final int ROWS = 15;
-    private final int BOMBS = 100;
+    private final int ROWS = 20;
+    private final int BOMBS = 150;
     private final int IMAGE_SIZE = 50;
 
     public static void main(String[] args) {
@@ -22,8 +23,14 @@ public class MineSweeper extends JFrame {
         game = new Game(COLS, ROWS, BOMBS);
         game.start();
         setImages();
+        initLabel();
         initPanel();
         initFrame();
+    }
+
+    private void initLabel() {
+        label = new JLabel("Вітаю на Херсонщині!");
+        add(label, BorderLayout.SOUTH);
     }
 
     private void initPanel() {
@@ -49,12 +56,21 @@ public class MineSweeper extends JFrame {
                     game.start();
                 if (e.getButton() == MouseEvent.BUTTON3)
                     game.pressRightButton(coord);
+                label.setText(getMessage());
                 gamingPanel.repaint();
             }
         });
 
         gamingPanel.setPreferredSize(new Dimension(Ranges.getSize().x * IMAGE_SIZE, Ranges.getSize().y * IMAGE_SIZE));
         add(gamingPanel);
+    }
+
+    private String getMessage() {
+        return switch (game.getState()) {
+            case PLAYED -> "Розміновуй Україну!";
+            case BOMBED -> "Ти здох)";
+            case WINNER -> "Крим НАШ!";
+        };
     }
 
     private void initFrame() {

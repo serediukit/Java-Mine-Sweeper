@@ -43,4 +43,8 @@ public class Bomb {
                 bombMap.set(around, bombMap.get(around).getNextNumberBox());
         }
     }
+
+    public int getTotalBombs() {
+        return totalBombs;
+    }
 }
