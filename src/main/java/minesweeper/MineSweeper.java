@@ -2,6 +2,8 @@ package main.java.minesweeper;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MineSweeper extends JFrame {
     private Game game;
@@ -34,17 +36,34 @@ public class MineSweeper extends JFrame {
                 }
             }
         };
+
+        gamingPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int x = e.getX() / IMAGE_SIZE;
+                int y = e.getY() / IMAGE_SIZE;
+                Coord coord = new Coord(x, y);
+                if (e.getButton() == MouseEvent.BUTTON1)
+                    game.pressLeftButton(coord);
+                if (e.getButton() == MouseEvent.BUTTON2)
+                    game.start();
+                if (e.getButton() == MouseEvent.BUTTON3)
+                    game.pressRightButton(coord);
+                gamingPanel.repaint();
+            }
+        });
+
         gamingPanel.setPreferredSize(new Dimension(Ranges.getSize().x * IMAGE_SIZE, Ranges.getSize().y * IMAGE_SIZE));
         add(gamingPanel);
     }
 
     private void initFrame() {
-        pack();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Mine Sweeper");
-        setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
+        pack();
+        setLocationRelativeTo(null);
         setIconImage(getImage("logo"));
     };
 
